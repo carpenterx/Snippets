@@ -1,6 +1,7 @@
 ﻿using Snippets.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -31,7 +32,7 @@ namespace Snippets
         private static readonly string PREREQUISITES = "===================  [PREREQUISITES]  ==================";
         private static readonly string CODE_START = "====================  [CODE START]  ====================";
         private static readonly string CODE_END = "=====================  [CODE END]  =====================";
-        private List<Snippet> snippetsList = new();
+        private readonly ObservableCollection<Snippet> snippetsList = new();
 
         public MainWindow()
         {
@@ -150,6 +151,16 @@ namespace Snippets
             {
                 Snippet selectedSnippet = (Snippet)snippetsListView.SelectedItem;
                 Clipboard.SetText(selectedSnippet.Code);
+            }
+        }
+
+        private void ShowAddWindowClick(object sender, RoutedEventArgs e)
+        {
+            var snippetWindow = new AddSnippetWindow();
+            if (snippetWindow.ShowDialog() == true)
+            {
+                //snippetTxt.Text = "Added";
+                snippetsList.Add(snippetWindow.GetSnippet());
             }
         }
     }
