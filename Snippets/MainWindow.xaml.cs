@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,17 @@ namespace Snippets
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static readonly string SNIPPETS_PATH = @"C:\Users\jorda\Desktop\snippets.txt";
         public MainWindow()
         {
             InitializeComponent();
+
+            ReadSnippetsFile(SNIPPETS_PATH);
+        }
+
+        private void ReadSnippetsFile(string path)
+        {
+            snippetTxt.Text = File.ReadAllText(path);
         }
     }
 }
