@@ -143,5 +143,14 @@ namespace Snippets
             Snippet selectedSnippet = (sender as ListView).SelectedItem as Snippet;
             DisplaySnippet(selectedSnippet);
         }
+
+        private void CopyCodeToClipboard(object sender, RoutedEventArgs e)
+        {
+            if (snippetsListView.SelectedIndex != -1)
+            {
+                Snippet selectedSnippet = (Snippet)snippetsListView.SelectedItem;
+                Clipboard.SetText(selectedSnippet.Code);
+            }
+        }
     }
 }

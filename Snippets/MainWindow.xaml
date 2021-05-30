@@ -17,6 +17,8 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
+        <Button Grid.Column="1" Content="Copy" Width="60" Click="CopyCodeToClipboard" Margin="2" />
+
         <ListView x:Name="snippetsListView" Grid.Row="1" SelectionMode="Single" SelectionChanged="ListViewItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
