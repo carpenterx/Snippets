@@ -137,5 +137,11 @@ namespace Snippets
             snippetStringBuilder.AppendLine("===========================");
             snippetTxt.Text = snippetStringBuilder.ToString();
         }
+
+        private void ListViewItemSelected(object sender, SelectionChangedEventArgs e)
+        {
+            Snippet selectedSnippet = (sender as ListView).SelectedItem as Snippet;
+            DisplaySnippet(selectedSnippet);
+        }
     }
 }
