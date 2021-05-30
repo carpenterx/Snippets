@@ -8,7 +8,6 @@ namespace Snippets.Models
     public partial class AddSnippetWindow : Window
     {
         private Snippet snippet;
-        //public Snippet Snippet { get; set; }
 
         public AddSnippetWindow()
         {

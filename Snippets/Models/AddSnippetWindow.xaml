@@ -28,8 +28,8 @@
 
         <TextBox x:Name="titleTxt" Grid.Column="1" d:Text="Snippet title"/>
         <TextBox x:Name="descTxt" Grid.Column="1" Grid.Row="1" d:Text="Snippet description"/>
-        <TextBox x:Name="prereqTxt" Grid.Column="1" Grid.Row="2" d:Text="Snippet prerequisites"/>
-        <TextBox x:Name="codeTxt" Grid.Column="1" Grid.Row="3" d:Text="Snippet code"/>
+        <TextBox x:Name="prereqTxt" Grid.Column="1" Grid.Row="2" d:Text="Snippet prerequisites" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
+        <TextBox x:Name="codeTxt" Grid.Column="1" Grid.Row="3" d:Text="Snippet code" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
 
         <Button Grid.Column="1" Grid.Row="4" Content="Add" Width="60" Click="AddSnippetClick" Margin="2" />
     </Grid>
