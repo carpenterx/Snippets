@@ -117,8 +117,10 @@ namespace Snippets
 
         private void ListViewItemSelected(object sender, SelectionChangedEventArgs e)
         {
-            Snippet selectedSnippet = (sender as ListView).SelectedItem as Snippet;
-            snippetTxt.Text = ConvertSnippetToText(selectedSnippet);
+            if ((sender as ListView).SelectedItem is Snippet selectedSnippet)
+            {
+                snippetTxt.Text = ConvertSnippetToText(selectedSnippet);
+            }
         }
 
         private void CopyCodeToClipboard(object sender, RoutedEventArgs e)
@@ -170,6 +172,15 @@ namespace Snippets
             }
 
             File.WriteAllText(SNIPPETS_PATH, snippetsBuilder.ToString());
+        }
+
+        private void DeleteSnippetClick(object sender, RoutedEventArgs e)
+        {
+            if (snippetsListView.SelectedIndex != -1)
+            {
+                snippetsList.RemoveAt(snippetsListView.SelectedIndex);
+                snippetTxt.Text = string.Empty;
+            }
         }
     }
 }

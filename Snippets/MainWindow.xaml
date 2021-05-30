@@ -20,6 +20,7 @@
 
         <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="2" HorizontalAlignment="Center">
             <Button Content="Copy" Width="60" Click="CopyCodeToClipboard" Margin="2" />
+            <Button Content="Delete" Width="60" Click="DeleteSnippetClick" Margin="2" />
             <Button Content="Add" Width="60" Click="ShowAddWindowClick" Margin="2" />
         </StackPanel>
         
