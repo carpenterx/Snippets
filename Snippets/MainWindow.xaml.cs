@@ -160,5 +160,16 @@ namespace Snippets
                 .AppendLine()
                 .ToString();
         }
+
+        private void SaveSnippetsOnClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            StringBuilder snippetsBuilder = new();
+            foreach (Snippet snippet in snippetsList)
+            {
+                snippetsBuilder = snippetsBuilder.AppendLine(ConvertSnippetToText(snippet));
+            }
+
+            File.WriteAllText(SNIPPETS_PATH, snippetsBuilder.ToString());
+        }
     }
 }
