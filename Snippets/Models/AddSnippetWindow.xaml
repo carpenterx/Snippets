@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Snippets.Models"
         mc:Ignorable="d"
-        Title="AddSnippetWindow" Height="400" Width="600">
+        Title="AddSnippetWindow" Height="400" Width="600"
+        WindowStartupLocation="CenterOwner">
     <Grid Margin="4">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />

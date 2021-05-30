@@ -157,6 +157,7 @@ namespace Snippets
         private void ShowAddWindowClick(object sender, RoutedEventArgs e)
         {
             var snippetWindow = new AddSnippetWindow();
+            snippetWindow.Owner = this;
             if (snippetWindow.ShowDialog() == true)
             {
                 //snippetTxt.Text = "Added";
