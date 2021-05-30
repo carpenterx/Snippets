@@ -21,7 +21,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Margin="4">
-                        <TextBlock Text="Text" />
+                        <TextBlock Text="{Binding Title}" />
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

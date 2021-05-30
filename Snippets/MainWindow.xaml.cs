@@ -49,7 +49,7 @@ namespace Snippets
                 ParseSnippetText(snippetText);
             }
 
-            DisplaySnippet(snippetsList[1]);
+            snippetsListView.ItemsSource = snippetsList;
         }
 
         private void ParseSnippetText(string text)
