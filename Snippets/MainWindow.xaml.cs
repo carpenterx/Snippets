@@ -17,6 +17,7 @@ namespace Snippets
     {
         private static readonly string SNIPPETS_PATH = @"C:\Users\jorda\Desktop\snippets.txt";
         private static readonly string SNIPPET_SEPARATOR = "======================  SNIPPET  =======================";
+        private static readonly string SNIPPET_FOOTER = "========================================================";
         private static readonly string NAME_PREFIX = "//  Name         :  ";
         private static readonly string DESCRIPTION_PREFIX = "//  Description  :  ";
         private static readonly string USE_COUNT_PREFIX = "//  Used         :  ";
@@ -95,9 +96,10 @@ namespace Snippets
         private string ExtractPrerequisites(string text)
         {
             string prerequisites = "";
-            int startIndex = text.IndexOf(PREREQUISITES) + PREREQUISITES.Length + 2;
-            if(startIndex > -1)
+            
+            if (text.IndexOf(PREREQUISITES) > -1)
             {
+                int startIndex = text.IndexOf(PREREQUISITES) + PREREQUISITES.Length + 2;
                 int endIndex = text.IndexOf(CODE_START) - 2;
                 prerequisites = text.Substring(startIndex, endIndex - startIndex);
             }
@@ -113,27 +115,10 @@ namespace Snippets
             return code;
         }
 
-        private void DisplaySnippet(Snippet snippet)
-        {
-            StringBuilder snippetStringBuilder = new();
-            snippetStringBuilder.AppendLine("===========================");
-            snippetStringBuilder.AppendLine(snippet.Title);
-            snippetStringBuilder.AppendLine("===========================");
-            snippetStringBuilder.AppendLine(snippet.Description);
-            snippetStringBuilder.AppendLine("===========================");
-            snippetStringBuilder.AppendLine(snippet.UseCount);
-            snippetStringBuilder.AppendLine("===========================");
-            snippetStringBuilder.AppendLine(snippet.Prerequisites);
-            snippetStringBuilder.AppendLine("===========================");
-            snippetStringBuilder.AppendLine(snippet.Code);
-            snippetStringBuilder.AppendLine("===========================");
-            snippetTxt.Text = snippetStringBuilder.ToString();
-        }
-
         private void ListViewItemSelected(object sender, SelectionChangedEventArgs e)
         {
             Snippet selectedSnippet = (sender as ListView).SelectedItem as Snippet;
-            DisplaySnippet(selectedSnippet);
+            snippetTxt.Text = ConvertSnippetToText(selectedSnippet);
         }
 
         private void CopyCodeToClipboard(object sender, RoutedEventArgs e)
@@ -147,12 +132,33 @@ namespace Snippets
 
         private void ShowAddWindowClick(object sender, RoutedEventArgs e)
         {
-            var snippetWindow = new AddSnippetWindow();
+            AddSnippetWindow snippetWindow = new();
             snippetWindow.Owner = this;
             if (snippetWindow.ShowDialog() == true)
             {
                 snippetsList.Add(snippetWindow.GetSnippet());
             }
+        }
+
+        private string ConvertSnippetToText(Snippet snippet)
+        {
+            StringBuilder snippetOutput = new();
+            return snippetOutput
+                .AppendLine(SNIPPET_SEPARATOR)
+                .AppendLine($"{NAME_PREFIX}{snippet.Title}")
+                .AppendLine($"{DESCRIPTION_PREFIX}{snippet.Description}")
+                .AppendLine($"{USE_COUNT_PREFIX}{snippet.UseCount}")
+                .AppendLine(SNIPPET_FOOTER)
+                .AppendLine()
+                .AppendLine(PREREQUISITES)
+                .AppendLine(snippet.Prerequisites)
+                .AppendLine(CODE_START)
+                .AppendLine(snippet.Code)
+                .AppendLine(CODE_END)
+                .AppendLine()
+                .AppendLine()
+                .AppendLine()
+                .ToString();
         }
     }
 }
