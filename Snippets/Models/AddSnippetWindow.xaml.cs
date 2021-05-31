@@ -23,7 +23,7 @@ namespace Snippets.Models
                 Description = descTxt.Text,
                 Prerequisites = prereqTxt.Text,
                 Code = codeTxt.Text,
-                UseCount = "0"
+                UseCount = 0
             };
             Window.GetWindow(this).DialogResult = true;
             Window.GetWindow(this).Close();

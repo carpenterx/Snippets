@@ -87,14 +87,17 @@ namespace Snippets
             return description;
         }
 
-        private string ExtractUseCount(string text)
+        private int ExtractUseCount(string text)
         {
-            string useCount = "";
+            int useCount = 0;
             string pattern = $"{USE_COUNT_PREFIX}(.+)\r";
             Match m = Regex.Match(text, pattern, RegexOptions.Multiline);
             if (m.Success)
             {
-                useCount = m.Groups[1].Value;
+                if (int.TryParse(m.Groups[1].Value, out int result))
+                {
+                    useCount = result;
+                }
             }
             return useCount;
         }
@@ -134,7 +137,9 @@ namespace Snippets
             if (snippetsListView.SelectedIndex != -1)
             {
                 Snippet selectedSnippet = (Snippet)snippetsListView.SelectedItem;
+                selectedSnippet.UseCount++;
                 Clipboard.SetText(selectedSnippet.Code);
+                snippetTxt.Text = ConvertSnippetToText(selectedSnippet);
             }
         }
 
