@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Snippets.Models"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="Add Snippet" Height="500" Width="600"
         WindowStartupLocation="CenterOwner">
@@ -26,11 +27,16 @@
         <Label Grid.Row="2" Content="Prerequisites"/>
         <Label Grid.Row="3" Content="Code"/>
 
-        <TextBox x:Name="titleTxt" Grid.Column="1" d:Text="Snippet title"/>
-        <TextBox x:Name="descTxt" Grid.Column="1" Grid.Row="1" d:Text="Snippet description"/>
-        <TextBox x:Name="prereqTxt" Grid.Column="1" Grid.Row="2" d:Text="Snippet prerequisites" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
-        <TextBox x:Name="codeTxt" Grid.Column="1" Grid.Row="3" d:Text="Snippet code" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
+        <TextBox x:Name="titleTxt" Grid.Column="1" d:Text="Snippet title" VerticalContentAlignment="Center" Padding="2"/>
+        <TextBox x:Name="descTxt" Grid.Column="1" Grid.Row="1" d:Text="Snippet description" VerticalContentAlignment="Center" Padding="2"/>
+        <TextBox x:Name="prereqTxt" Grid.Column="1" Grid.Row="2" d:Text="Snippet prerequisites" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Padding="2"/>
+        <TextBox x:Name="codeTxt" Grid.Column="1" Grid.Row="3" d:Text="Snippet code" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Padding="2"/>
 
-        <Button Grid.Column="1" Grid.Row="4" Content="Add" Width="60" Click="AddSnippetClick" Margin="2" />
+        <Button Grid.Column="1" Grid.Row="4" Width="80" Click="AddSnippetClick" Margin="2">
+            <StackPanel Orientation="Horizontal" Margin="2">
+                <iconPacks:PackIconBootstrapIcons Kind="Braces" Margin="2" />
+                <TextBlock Text="Add" Margin="2"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>

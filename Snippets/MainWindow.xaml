@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Snippets"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="Snippets" Height="500" Width="800" Closing="SaveSnippetsOnClosing"
         >
@@ -18,10 +19,34 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
+        <StackPanel Orientation="Horizontal" Margin="2" HorizontalAlignment="Center">
+            <TextBox Text="Search" Width="160" VerticalContentAlignment="Center" Padding="2" Margin="2" />
+            <Button Margin="2">
+                <StackPanel Orientation="Horizontal" Margin="2">
+                    <iconPacks:PackIconBootstrapIcons Kind="Search" Margin="2" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
         <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="2" HorizontalAlignment="Center">
-            <Button Content="Copy" Width="60" Click="CopyCodeToClipboard" Margin="2" />
-            <Button Content="Delete" Width="60" Click="DeleteSnippetClick" Margin="2" />
-            <Button Content="Add" Width="60" Click="ShowAddWindowClick" Margin="2" />
+            <Button Width="80" Click="CopyCodeToClipboard" Margin="2">
+                <StackPanel Orientation="Horizontal" Margin="2">
+                    <iconPacks:PackIconBootstrapIcons Kind="ClipboardPlus" Margin="2" />
+                    <TextBlock Text="Copy" Margin="2"/>
+                </StackPanel>
+            </Button>
+            <Button Width="80" Click="DeleteSnippetClick" Margin="2">
+                <StackPanel Orientation="Horizontal" Margin="2">
+                    <iconPacks:PackIconBootstrapIcons Kind="Trash" Margin="2" />
+                    <TextBlock Text="Delete" Margin="2"/>
+                </StackPanel>
+            </Button>
+            <Button Width="80" Click="ShowAddWindowClick" Margin="2">
+                <StackPanel Orientation="Horizontal" Margin="2">
+                    <iconPacks:PackIconBootstrapIcons Kind="Braces" Margin="2" />
+                    <TextBlock Text="Add" Margin="2"/>
+                </StackPanel>
+            </Button>
         </StackPanel>
         
 
@@ -35,6 +60,6 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <TextBox x:Name="snippetTxt" Grid.Row="1" Grid.Column="1" d:Text="snippet" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
+        <TextBox x:Name="snippetTxt" Grid.Row="1" Grid.Column="1" d:Text="snippet" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Padding="2" />
     </Grid>
 </Window>
