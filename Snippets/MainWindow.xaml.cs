@@ -1,4 +1,5 @@
 ﻿using Snippets.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -15,7 +16,6 @@ namespace Snippets
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static readonly string SNIPPETS_PATH = @"C:\Users\jorda\Desktop\snippets.txt";
         private static readonly string SNIPPET_SEPARATOR = "======================  SNIPPET  =======================";
         private static readonly string SNIPPET_FOOTER = "========================================================";
         private static readonly string NAME_PREFIX = "//  Name         :  ";
@@ -26,22 +26,28 @@ namespace Snippets
         private static readonly string CODE_END = "=====================  [CODE END]  =====================";
         private readonly ObservableCollection<Snippet> snippetsList = new();
 
+        private static readonly string APPLICATION_FOLDER = "Snippets";
+        private static readonly string SNIPPETS_FILE = "snippets.txt";
+        private readonly string snippetsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APPLICATION_FOLDER, SNIPPETS_FILE);
+
         public MainWindow()
         {
             InitializeComponent();
 
-            ReadSnippetsFile(SNIPPETS_PATH);
+            ReadSnippetsFile();
         }
 
-        private void ReadSnippetsFile(string path)
+        private void ReadSnippetsFile()
         {
-            List<string> snippets = File.ReadAllText(path).Split(SNIPPET_SEPARATOR).ToList().Skip(1).ToList();
-            
-            foreach (string snippetText in snippets)
+            if (File.Exists(snippetsPath))
             {
-                ParseSnippetText(snippetText);
-            }
+                List<string> snippets = File.ReadAllText(snippetsPath).Split(SNIPPET_SEPARATOR).ToList().Skip(1).ToList();
 
+                foreach (string snippetText in snippets)
+                {
+                    ParseSnippetText(snippetText);
+                }
+            }
             snippetsListView.ItemsSource = snippetsList;
         }
 
@@ -171,7 +177,12 @@ namespace Snippets
                 snippetsBuilder = snippetsBuilder.AppendLine(ConvertSnippetToText(snippet));
             }
 
-            File.WriteAllText(SNIPPETS_PATH, snippetsBuilder.ToString());
+            string appDirectory = Path.GetDirectoryName(snippetsPath);
+            if (!Directory.Exists(appDirectory))
+            {
+                Directory.CreateDirectory(appDirectory);
+            }
+            File.WriteAllText(snippetsPath, snippetsBuilder.ToString());
         }
 
         private void DeleteSnippetClick(object sender, RoutedEventArgs e)
