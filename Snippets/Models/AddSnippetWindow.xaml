@@ -22,15 +22,15 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <Label Content="Title"/>
-        <Label Grid.Row="1" Content="Description"/>
-        <Label Grid.Row="2" Content="Prerequisites"/>
-        <Label Grid.Row="3" Content="Code"/>
+        <Label Content="Title" Margin="2"/>
+        <Label Grid.Row="1" Content="Description" Margin="2"/>
+        <Label Grid.Row="2" Content="Prerequisites" Margin="2"/>
+        <Label Grid.Row="3" Content="Code" Margin="2"/>
 
-        <TextBox x:Name="titleTxt" Grid.Column="1" d:Text="Snippet title" VerticalContentAlignment="Center" Padding="2"/>
-        <TextBox x:Name="descTxt" Grid.Column="1" Grid.Row="1" d:Text="Snippet description" VerticalContentAlignment="Center" Padding="2"/>
-        <TextBox x:Name="prereqTxt" Grid.Column="1" Grid.Row="2" d:Text="Snippet prerequisites" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Padding="2"/>
-        <TextBox x:Name="codeTxt" Grid.Column="1" Grid.Row="3" d:Text="Snippet code" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Padding="2"/>
+        <TextBox x:Name="titleTxt" Grid.Column="1" d:Text="Snippet title" VerticalContentAlignment="Center" Padding="2" Margin="2"/>
+        <TextBox x:Name="descTxt" Grid.Column="1" Grid.Row="1" d:Text="Snippet description" VerticalContentAlignment="Center" Padding="2" Margin="2"/>
+        <TextBox x:Name="prereqTxt" Grid.Column="1" Grid.Row="2" d:Text="Snippet prerequisites" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Padding="2" Margin="2"/>
+        <TextBox x:Name="codeTxt" Grid.Column="1" Grid.Row="3" d:Text="Snippet code" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Padding="2" Margin="2"/>
 
         <Button Grid.Column="1" Grid.Row="4" Width="80" Click="AddSnippetClick" Margin="2">
             <StackPanel Orientation="Horizontal" Margin="2">
