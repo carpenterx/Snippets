@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Data;
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 
@@ -38,6 +42,20 @@ namespace Snippets.Models
             field = value;
             OnPropertyChanged(propertyName);
             return true;
+        }
+    }
+
+    public class EmptyStringToHiddenConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            string stringValue = (string)value;
+            return stringValue == string.Empty ? Visibility.Hidden : Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 }
