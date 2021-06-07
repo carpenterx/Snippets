@@ -19,11 +19,11 @@ namespace Snippets.Models
 
             snippet = new Snippet
             {
-                Title = titleTxt.Text,
+                Name = titleTxt.Text,
                 Description = descTxt.Text,
                 Prerequisites = prereqTxt.Text,
                 Code = codeTxt.Text,
-                UseCount = 0
+                Used = 0
             };
             Window.GetWindow(this).DialogResult = true;
             Window.GetWindow(this).Close();

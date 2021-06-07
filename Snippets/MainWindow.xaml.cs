@@ -1,13 +1,12 @@
 ﻿using Snippets.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using YamlDotNet.Serialization;
 
 namespace Snippets
 {
@@ -16,7 +15,6 @@ namespace Snippets
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static readonly string SNIPPET_SEPARATOR = "======================  SNIPPET  =======================";
         private static readonly string SNIPPET_FOOTER = "========================================================";
         private static readonly string NAME_PREFIX = "//  Name         :  ";
         private static readonly string DESCRIPTION_PREFIX = "//  Description  :  ";
@@ -24,10 +22,10 @@ namespace Snippets
         private static readonly string PREREQUISITES = "===================  [PREREQUISITES]  ==================";
         private static readonly string CODE_START = "====================  [CODE START]  ====================";
         private static readonly string CODE_END = "=====================  [CODE END]  =====================";
-        private readonly ObservableCollection<Snippet> snippetsList = new();
+        private ObservableCollection<Snippet> snippetsList = new();
 
         private static readonly string APPLICATION_FOLDER = "Snippets";
-        private static readonly string SNIPPETS_FILE = "snippets.txt";
+        private static readonly string SNIPPETS_FILE = "snippets.yml";
         private readonly string snippetsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), APPLICATION_FOLDER, SNIPPETS_FILE);
 
         public MainWindow()
@@ -41,87 +39,14 @@ namespace Snippets
         {
             if (File.Exists(snippetsPath))
             {
-                List<string> snippets = File.ReadAllText(snippetsPath).Split(SNIPPET_SEPARATOR).ToList().Skip(1).ToList();
+                var input = new StringReader(File.ReadAllText(snippetsPath));
+                var deserializer = new DeserializerBuilder().Build();
 
-                foreach (string snippetText in snippets)
-                {
-                    ParseSnippetText(snippetText);
-                }
+                ObservableCollection<Snippet> snippets = deserializer.Deserialize<ObservableCollection<Snippet>>(input);
+                snippetsList = new ObservableCollection<Snippet>(snippets);
             }
+
             snippetsListView.ItemsSource = snippetsList;
-        }
-
-        private void ParseSnippetText(string text)
-        {
-            snippetsList.Add(new Snippet
-            {
-                Title = ExtractName(text),
-                Description = ExtractDescription(text),
-                UseCount = ExtractUseCount(text),
-                Prerequisites = ExtractPrerequisites(text),
-                Code = ExtractCode(text)
-            });
-        }
-
-        private string ExtractName(string text)
-        {
-            string name = "";
-            string pattern = $"{NAME_PREFIX}(.+)\r";
-            Match m = Regex.Match(text, pattern, RegexOptions.Multiline);
-            if (m.Success)
-            {
-                name = m.Groups[1].Value;
-            }
-            return name;
-        }
-
-        private string ExtractDescription(string text)
-        {
-            string description = "";
-            string pattern = $"{DESCRIPTION_PREFIX}(.+)\r";
-            Match m = Regex.Match(text, pattern, RegexOptions.Multiline);
-            if (m.Success)
-            {
-                description = m.Groups[1].Value;
-            }
-            return description;
-        }
-
-        private int ExtractUseCount(string text)
-        {
-            int useCount = 0;
-            string pattern = $"{USE_COUNT_PREFIX}(.+)\r";
-            Match m = Regex.Match(text, pattern, RegexOptions.Multiline);
-            if (m.Success)
-            {
-                if (int.TryParse(m.Groups[1].Value, out int result))
-                {
-                    useCount = result;
-                }
-            }
-            return useCount;
-        }
-
-        private string ExtractPrerequisites(string text)
-        {
-            string prerequisites = "";
-            
-            if (text.IndexOf(PREREQUISITES) > -1)
-            {
-                int startIndex = text.IndexOf(PREREQUISITES) + PREREQUISITES.Length + 2;
-                int endIndex = text.IndexOf(CODE_START) - 2;
-                prerequisites = text.Substring(startIndex, endIndex - startIndex);
-            }
-            return prerequisites;
-        }
-
-        private string ExtractCode(string text)
-        {
-            string code;
-            int startIndex = text.IndexOf(CODE_START) + CODE_START.Length + 2;
-            int endIndex = text.IndexOf(CODE_END) - 2;
-            code = text[startIndex..endIndex];
-            return code;
         }
 
         private void ListViewItemSelected(object sender, SelectionChangedEventArgs e)
@@ -137,7 +62,7 @@ namespace Snippets
             if (snippetsListView.SelectedIndex != -1)
             {
                 Snippet selectedSnippet = (Snippet)snippetsListView.SelectedItem;
-                selectedSnippet.UseCount++;
+                selectedSnippet.Used++;
                 Clipboard.SetText(selectedSnippet.Code);
                 snippetTxt.Text = ConvertSnippetToText(selectedSnippet);
             }
@@ -157,10 +82,9 @@ namespace Snippets
         {
             StringBuilder snippetOutput = new();
             return snippetOutput
-                .AppendLine(SNIPPET_SEPARATOR)
-                .AppendLine($"{NAME_PREFIX}{snippet.Title}")
+                .AppendLine($"{NAME_PREFIX}{snippet.Name}")
                 .AppendLine($"{DESCRIPTION_PREFIX}{snippet.Description}")
-                .AppendLine($"{USE_COUNT_PREFIX}{snippet.UseCount}")
+                .AppendLine($"{USE_COUNT_PREFIX}{snippet.Used}")
                 .AppendLine(SNIPPET_FOOTER)
                 .AppendLine()
                 .AppendLine(PREREQUISITES)
@@ -168,9 +92,6 @@ namespace Snippets
                 .AppendLine(CODE_START)
                 .AppendLine(snippet.Code)
                 .AppendLine(CODE_END)
-                .AppendLine()
-                .AppendLine()
-                .AppendLine()
                 .ToString();
         }
 
@@ -187,7 +108,11 @@ namespace Snippets
             {
                 Directory.CreateDirectory(appDirectory);
             }
-            File.WriteAllText(snippetsPath, snippetsBuilder.ToString());
+
+            var serializer = new SerializerBuilder().Build();
+            var yaml = serializer.Serialize(snippetsList);
+            File.WriteAllText(snippetsPath, yaml);
+            Process.Start("explorer.exe", snippetsPath);
         }
 
         private void DeleteSnippetClick(object sender, RoutedEventArgs e)
