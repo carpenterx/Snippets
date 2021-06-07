@@ -14,13 +14,6 @@ namespace Snippets
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static readonly string SNIPPET_FOOTER = "========================================================";
-        private static readonly string NAME_PREFIX = "//  Name         :  ";
-        private static readonly string DESCRIPTION_PREFIX = "//  Description  :  ";
-        private static readonly string USE_COUNT_PREFIX = "//  Used         :  ";
-        private static readonly string PREREQUISITES = "===================  [PREREQUISITES]  ==================";
-        private static readonly string CODE_START = "====================  [CODE START]  ====================";
-        private static readonly string CODE_END = "=====================  [CODE END]  =====================";
         private ObservableCollection<Snippet> snippetsList = new();
 
         private static readonly string APPLICATION_FOLDER = "Snippets";
@@ -63,7 +56,6 @@ namespace Snippets
                 Snippet selectedSnippet = (Snippet)snippetsListView.SelectedItem;
                 selectedSnippet.Used++;
                 Clipboard.SetText(selectedSnippet.Code);
-                //snippetGrid.DataContext = selectedSnippet;
             }
         }
 
@@ -77,31 +69,8 @@ namespace Snippets
             }
         }
 
-        private string ConvertSnippetToText(Snippet snippet)
-        {
-            StringBuilder snippetOutput = new();
-            return snippetOutput
-                .AppendLine($"{NAME_PREFIX}{snippet.Name}")
-                .AppendLine($"{DESCRIPTION_PREFIX}{snippet.Description}")
-                .AppendLine($"{USE_COUNT_PREFIX}{snippet.Used}")
-                .AppendLine(SNIPPET_FOOTER)
-                .AppendLine()
-                .AppendLine(PREREQUISITES)
-                .AppendLine(snippet.Prerequisites)
-                .AppendLine(CODE_START)
-                .AppendLine(snippet.Code)
-                .AppendLine(CODE_END)
-                .ToString();
-        }
-
         private void SaveSnippetsOnClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            StringBuilder snippetsBuilder = new();
-            foreach (Snippet snippet in snippetsList)
-            {
-                snippetsBuilder = snippetsBuilder.AppendLine(ConvertSnippetToText(snippet));
-            }
-
             string appDirectory = Path.GetDirectoryName(snippetsPath);
             if (!Directory.Exists(appDirectory))
             {
