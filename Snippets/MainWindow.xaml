@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Snippets"
+        xmlns:models="clr-namespace:Snippets.Models"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="Snippets" Height="500" Width="800" Closing="SaveSnippetsOnClosing"
@@ -64,7 +65,7 @@
         </StackPanel>
         
 
-        <ListView x:Name="snippetsListView" Grid.Row="1" SelectionMode="Single" SelectionChanged="ListViewItemSelected">
+        <ListView x:Name="snippetsListView" Grid.Row="1" SelectionMode="Single" SelectionChanged="ListViewItemSelected" Margin="4">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Margin="4">
@@ -74,6 +75,33 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <TextBox x:Name="snippetTxt" Grid.Row="1" Grid.Column="1" d:Text="snippet" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Padding="2" />
+        <!--<TextBox x:Name="snippetTxt" Grid.Row="1" Grid.Column="1" d:Text="snippet" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Padding="2" />-->
+        <Grid x:Name="snippetGrid" Grid.Row="1" Grid.Column="1" DataContext="{Binding Snippet}" Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Name: " Margin="2"/>
+            <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="2"/>
+
+            <TextBlock Grid.Row="1" Text="Description: " Margin="2"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Description}" Margin="2"/>
+
+            <TextBlock Grid.Row="2" Text="Used: " Margin="2"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Used}" Margin="2"/>
+
+            <TextBox Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding Prerequisites}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Padding="2" Margin="2"/>
+
+            <TextBox Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding Code}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Padding="2" Margin="2"/>
+        </Grid>
     </Grid>
 </Window>

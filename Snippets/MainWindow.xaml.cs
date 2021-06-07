@@ -52,7 +52,7 @@ namespace Snippets
         {
             if ((sender as ListView).SelectedItem is Snippet selectedSnippet)
             {
-                snippetTxt.Text = ConvertSnippetToText(selectedSnippet);
+                snippetGrid.DataContext = selectedSnippet;
             }
         }
 
@@ -63,7 +63,7 @@ namespace Snippets
                 Snippet selectedSnippet = (Snippet)snippetsListView.SelectedItem;
                 selectedSnippet.Used++;
                 Clipboard.SetText(selectedSnippet.Code);
-                snippetTxt.Text = ConvertSnippetToText(selectedSnippet);
+                //snippetGrid.DataContext = selectedSnippet;
             }
         }
 
@@ -118,7 +118,7 @@ namespace Snippets
             if (snippetsListView.SelectedIndex != -1)
             {
                 snippetsList.RemoveAt(snippetsListView.SelectedIndex);
-                snippetTxt.Text = string.Empty;
+                snippetGrid.DataContext = null;
             }
         }
     }
