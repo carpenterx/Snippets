@@ -1,7 +1,6 @@
 ﻿using Snippets.Models;
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -112,7 +111,6 @@ namespace Snippets
             var serializer = new SerializerBuilder().Build();
             var yaml = serializer.Serialize(snippetsList);
             File.WriteAllText(snippetsPath, yaml);
-            Process.Start("explorer.exe", snippetsPath);
         }
 
         private void DeleteSnippetClick(object sender, RoutedEventArgs e)
