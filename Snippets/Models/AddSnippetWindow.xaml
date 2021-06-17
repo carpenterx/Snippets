@@ -7,6 +7,7 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="Add Snippet" Height="500" Width="600"
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
     <Grid Margin="4">
         <Grid.ColumnDefinitions>
