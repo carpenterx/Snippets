@@ -1,10 +1,12 @@
 ﻿using Snippets.Models;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using YamlDotNet.Serialization;
 
 namespace Snippets
@@ -89,6 +91,76 @@ namespace Snippets
                 snippetsList.RemoveAt(snippetsListView.SelectedIndex);
                 snippetGrid.DataContext = null;
             }
+        }
+
+        private void FindSnippetClick(object sender, RoutedEventArgs e)
+        {
+            FindSnippet();
+        }
+
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                FindSnippet();
+            }
+        }
+
+        private void FindSnippet()
+        {
+            string[] searchTerms = searchTxt.Text.ToLowerInvariant().Split(" ");
+
+            List<int> searchScores = new();
+            for (int i = 0; i < snippetsListView.Items.Count; i++)
+            {
+                Snippet snippet = snippetsListView.Items[i] as Snippet;
+                searchScores.Add(GetSearchScore(snippet.Name.ToLowerInvariant(), searchTerms) + GetSearchScore(snippet.Description.ToLowerInvariant(), searchTerms));
+            }
+            int searchResultIndex = IndexOfMaxValue(searchScores);
+            if (searchScores[searchResultIndex] > 0)
+            {
+                snippetsListView.ScrollIntoView(snippetsListView.Items[searchResultIndex]);
+                snippetsListView.SelectedIndex = searchResultIndex;
+            }
+        }
+
+        private int GetSearchScore(string input, string[] searchTerms)
+        {
+            int score = 0;
+            foreach (string searchTerm in searchTerms)
+            {
+                if (input.Contains(searchTerm))
+                {
+                    score++;
+                }
+            }
+
+            return score;
+        }
+
+        private static int IndexOfMaxValue(IList<int> list)
+        {
+            int size = list.Count;
+
+            if (size < 2)
+            {
+                return size - 1;
+            }
+
+            int maxValue = list[0];
+            int maxIndex = 0;
+
+            for (int i = 1; i < size; ++i)
+            {
+                int thisValue = list[i];
+                if (thisValue > maxValue)
+                {
+                    maxValue = thisValue;
+                    maxIndex = i;
+                }
+            }
+
+            return maxIndex;
         }
     }
 }
