@@ -7,26 +7,28 @@ namespace Snippets.Models
     /// </summary>
     public partial class AddSnippetWindow : Window
     {
-        private Snippet snippet;
+        private Snippet snippet = new();
 
         public AddSnippetWindow()
         {
             InitializeComponent();
+
+            DataContext = snippet;
+        }
+
+        public AddSnippetWindow(Snippet snippetToEdit)
+        {
+            InitializeComponent();
+
+            snippet = snippetToEdit;
+
+            DataContext = snippet;
         }
 
         public void AddSnippetClick(object sender, RoutedEventArgs e)
         {
-
-            snippet = new Snippet
-            {
-                Name = titleTxt.Text,
-                Description = descTxt.Text,
-                Prerequisites = prereqTxt.Text,
-                Code = codeTxt.Text,
-                Used = 0
-            };
-            Window.GetWindow(this).DialogResult = true;
-            Window.GetWindow(this).Close();
+            GetWindow(this).DialogResult = true;
+            GetWindow(this).Close();
         }
 
         public Snippet GetSnippet()

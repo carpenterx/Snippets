@@ -28,10 +28,10 @@
         <Label Grid.Row="2" Content="Prerequisites" Margin="2"/>
         <Label Grid.Row="3" Content="Code" Margin="2"/>
 
-        <TextBox x:Name="titleTxt" Grid.Column="1" d:Text="Snippet title" VerticalContentAlignment="Center" Padding="2" Margin="2"/>
-        <TextBox x:Name="descTxt" Grid.Column="1" Grid.Row="1" d:Text="Snippet description" VerticalContentAlignment="Center" Padding="2" Margin="2"/>
-        <TextBox x:Name="prereqTxt" Grid.Column="1" Grid.Row="2" d:Text="Snippet prerequisites" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Padding="2" Margin="2"/>
-        <TextBox x:Name="codeTxt" Grid.Column="1" Grid.Row="3" d:Text="Snippet code" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Padding="2" Margin="2"/>
+        <TextBox Grid.Column="1" d:Text="Snippet title" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" Padding="2" Margin="2"/>
+        <TextBox Grid.Column="1" Grid.Row="1" d:Text="Snippet description" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" Padding="2" Margin="2"/>
+        <TextBox Grid.Column="1" Grid.Row="2" d:Text="Snippet prerequisites" Text="{Binding Prerequisites, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Padding="2" Margin="2"/>
+        <TextBox Grid.Column="1" Grid.Row="3" d:Text="Snippet code" Text="{Binding Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Padding="2" Margin="2"/>
 
         <Button Grid.Column="1" Grid.Row="4" Width="80" Click="AddSnippetClick" Margin="2">
             <StackPanel Orientation="Horizontal" Margin="2">
