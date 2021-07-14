@@ -20,6 +20,10 @@ namespace Snippets.Models
         {
             InitializeComponent();
 
+            Title = "Edit Snippet";
+            submitTxt.Text = "Edit";
+            submitIcon.Kind = MahApps.Metro.IconPacks.PackIconBootstrapIconsKind.Pencil;
+
             snippet = snippetToEdit;
 
             DataContext = snippet;

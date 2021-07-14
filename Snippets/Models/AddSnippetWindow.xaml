@@ -35,8 +35,8 @@
 
         <Button Grid.Column="1" Grid.Row="4" Width="80" Click="AddSnippetClick" Margin="2">
             <StackPanel Orientation="Horizontal" Margin="2">
-                <iconPacks:PackIconBootstrapIcons Kind="Braces" Margin="2" />
-                <TextBlock Text="Add" Margin="2"/>
+                <iconPacks:PackIconBootstrapIcons x:Name="submitIcon"  Kind="Braces" Margin="2" />
+                <TextBlock x:Name="submitTxt" Text="Add" Margin="2"/>
             </StackPanel>
         </Button>
     </Grid>
