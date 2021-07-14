@@ -12,18 +12,46 @@ namespace Snippets.Models
 {
     public class Snippet : INotifyPropertyChanged
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
+        //public string Name { get; set; }
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => SetField(ref _name, value);
+        }
+
+        //public string Description { get; set; }
+        private string _description;
+        public string Description
+        {
+            get => _description;
+            set => SetField(ref _description, value);
+        }
+
         private int _used;
         public int Used
         {
             get => _used;
             set => SetField(ref _used, value);
         }
+        
+        //public string Prerequisites { get; set; }
+        private string _prerequisites;
         [YamlMember(ScalarStyle = ScalarStyle.Literal)]
-        public string Prerequisites { get; set; }
+        public string Prerequisites
+        {
+            get => _prerequisites;
+            set => SetField(ref _prerequisites, value);
+        }
+
+        //public string Code { get; set; }
+        private string _code;
         [YamlMember(ScalarStyle = ScalarStyle.Literal)]
-        public string Code { get; set; }
+        public string Code
+        {
+            get => _code;
+            set => SetField(ref _code, value);
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

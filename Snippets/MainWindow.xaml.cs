@@ -172,9 +172,7 @@ namespace Snippets
                 if (snippetWindow.ShowDialog() == true)
                 {
                     Snippet editedSnippet = snippetWindow.GetSnippet();
-                    int index = snippetsList.IndexOf(selectedSnippet);
-                    snippetsList.Remove(selectedSnippet);
-                    snippetsList.Insert(index, editedSnippet);
+                    selectedSnippet = editedSnippet;
                 }
             }
         }
