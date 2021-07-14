@@ -73,8 +73,7 @@
             </Button>
         </StackPanel>
         
-
-        <ListView x:Name="snippetsListView" Grid.Row="1" SelectionMode="Single" SelectionChanged="ListViewItemSelected" Margin="4">
+        <ListView x:Name="snippetsListView" Grid.Row="1" SelectionMode="Single" SelectionChanged="ListViewItemSelected" Margin="4" ScrollViewer.CanContentScroll="False">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Margin="4">
@@ -84,7 +83,6 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <!--<TextBox x:Name="snippetTxt" Grid.Row="1" Grid.Column="1" d:Text="snippet" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Padding="2" />-->
         <Grid x:Name="snippetGrid" Grid.Row="1" Grid.Column="1" DataContext="{Binding Snippet}" Margin="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
