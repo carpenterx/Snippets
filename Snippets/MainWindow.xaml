@@ -65,6 +65,12 @@
                     <TextBlock Text="Add" Margin="2"/>
                 </StackPanel>
             </Button>
+            <Button Width="80" Click="ShowEditWindowClick" Margin="2">
+                <StackPanel Orientation="Horizontal" Margin="2">
+                    <iconPacks:PackIconBootstrapIcons Kind="Pencil" Margin="2" />
+                    <TextBlock Text="Edit" Margin="2"/>
+                </StackPanel>
+            </Button>
         </StackPanel>
         
 

@@ -162,5 +162,21 @@ namespace Snippets
 
             return maxIndex;
         }
+
+        private void ShowEditWindowClick(object sender, RoutedEventArgs e)
+        {
+            if (snippetsListView.SelectedItem is Snippet selectedSnippet)
+            {
+                AddSnippetWindow snippetWindow = new(selectedSnippet);
+                snippetWindow.Owner = this;
+                if (snippetWindow.ShowDialog() == true)
+                {
+                    Snippet editedSnippet = snippetWindow.GetSnippet();
+                    int index = snippetsList.IndexOf(selectedSnippet);
+                    snippetsList.Remove(selectedSnippet);
+                    snippetsList.Insert(index, editedSnippet);
+                }
+            }
+        }
     }
 }
