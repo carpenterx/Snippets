@@ -63,11 +63,11 @@ namespace Snippets
 
         private void ShowAddWindowClick(object sender, RoutedEventArgs e)
         {
-            AddSnippetWindow snippetWindow = new();
+            SnippetWindow snippetWindow = new();
             snippetWindow.Owner = this;
             if (snippetWindow.ShowDialog() == true)
             {
-                snippetsList.Add(snippetWindow.GetSnippet());
+                snippetsList.Add(snippetWindow.Snippet);
             }
         }
 
@@ -167,11 +167,11 @@ namespace Snippets
         {
             if (snippetsListView.SelectedItem is Snippet selectedSnippet)
             {
-                AddSnippetWindow snippetWindow = new(selectedSnippet);
+                SnippetWindow snippetWindow = new(selectedSnippet);
                 snippetWindow.Owner = this;
                 if (snippetWindow.ShowDialog() == true)
                 {
-                    Snippet editedSnippet = snippetWindow.GetSnippet();
+                    Snippet editedSnippet = snippetWindow.Snippet;
                     selectedSnippet = editedSnippet;
                 }
             }

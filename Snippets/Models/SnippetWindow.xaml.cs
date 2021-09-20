@@ -3,20 +3,20 @@
 namespace Snippets.Models
 {
     /// <summary>
-    /// Interaction logic for AddSnippetWindow.xaml
+    /// Interaction logic for SnippetWindow.xaml
     /// </summary>
-    public partial class AddSnippetWindow : Window
+    public partial class SnippetWindow : Window
     {
-        private Snippet snippet = new();
+        public Snippet Snippet { get; set; } = new();
 
-        public AddSnippetWindow()
+        public SnippetWindow()
         {
             InitializeComponent();
 
-            DataContext = snippet;
+            DataContext = Snippet;
         }
 
-        public AddSnippetWindow(Snippet snippetToEdit)
+        public SnippetWindow(Snippet snippetToEdit)
         {
             InitializeComponent();
 
@@ -24,20 +24,15 @@ namespace Snippets.Models
             submitTxt.Text = "Edit";
             submitIcon.Kind = MahApps.Metro.IconPacks.PackIconBootstrapIconsKind.Pencil;
 
-            snippet = snippetToEdit;
+            Snippet = snippetToEdit;
 
-            DataContext = snippet;
+            DataContext = Snippet;
         }
 
         public void AddSnippetClick(object sender, RoutedEventArgs e)
         {
             GetWindow(this).DialogResult = true;
             GetWindow(this).Close();
-        }
-
-        public Snippet GetSnippet()
-        {
-            return snippet;
         }
     }
 }
